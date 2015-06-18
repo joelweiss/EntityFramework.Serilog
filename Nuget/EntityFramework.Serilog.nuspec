@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
     <metadata>
-        <id>Serilog.Extras.EntityFramesork</id>
+        <id>EntityFramesork.Serilog</id>
         <version>1.0.0.0-Beta</version>
         <authors>Joel Weiss</authors>
         <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
@@ -17,6 +17,6 @@
         </dependencies>
     </metadata>
     <files>
-        <file src="..\Source\EntityFramework.Serilog\bin\Release\EntityFramework.Serilog.dll" target="lib\EntityFramework.Serilog.dll" />
+        <file src="..\Source\EntityFramework.Serilog\bin\Release\EntityFramework.Serilog.dll" target="lib\net45\EntityFramework.Serilog.dll" />
     </files>
 </package>
