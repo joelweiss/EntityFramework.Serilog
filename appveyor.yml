@@ -1,0 +1,18 @@
+version: 1.0.{build}
+configuration: Release
+assembly_info:
+  patch: true
+  file: AssemblyInfo.*
+  assembly_version: '{version}'
+  assembly_file_version: '{version}'
+  assembly_informational_version: '{version}'
+before_build:
+- ps: nuget restore Source\EntityFramework.Serilog.sln
+build:
+  project: Source\EntityFramework.Serilog.sln
+  verbosity: minimal
+after_build:
+- ps: >-
+    nuget pack Nuget\EntityFramework.Serilog.nuspec -Version $env:APPVEYOR_BUILD_VERSION-Beta
+
+    appveyor PushArtifact ChangeTracking.$env:APPVEYOR_BUILD_VERSION-Beta.nupkg
