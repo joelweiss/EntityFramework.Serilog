@@ -15,4 +15,4 @@ after_build:
 - ps: >-
     nuget pack Nuget\EntityFramework.Serilog.nuspec -Version $env:APPVEYOR_BUILD_VERSION-Beta
 
-    appveyor PushArtifact ChangeTracking.$env:APPVEYOR_BUILD_VERSION-Beta.nupkg
+    appveyor PushArtifact EntityFramework.Serilog.$env:APPVEYOR_BUILD_VERSION-Beta.nupkg
