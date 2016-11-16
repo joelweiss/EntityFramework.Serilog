@@ -14,7 +14,7 @@ using Serilog;
 
 namespace EntityFramework.Serilog
 {
-    class SerilogCommandInterceptor : IDbCommandInterceptor, IDbConnectionInterceptor, IDbTransactionInterceptor
+    class SerilogCommandInterceptor : IDbCommandInterceptor, IDbConnectionInterceptor, IDbTransactionInterceptor, IDisposable
     {
         private readonly ILogger _Logger;
         private readonly WeakReference _Context;
@@ -57,7 +57,6 @@ namespace EntityFramework.Serilog
             object internalContext = typeof(DbContext).GetProperty("InternalContext", BindingFlags.Instance | BindingFlags.NonPublic).GetGetMethod(true).Invoke(context, null);
             EventInfo eventInfo = internalContext.GetType().GetEvent("OnDisposing", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
             eventInfo.AddEventHandler(internalContext, new EventHandler<EventArgs>((_, __) => DbInterception.Remove(this)));
-            
         }
 
         /// <summary>
@@ -723,7 +722,11 @@ namespace EntityFramework.Serilog
                 }
             }
         }
-
-
+                
+        public void Dispose()
+        {
+            DbInterception.Remove(this);
+            GC.SuppressFinalize(this);
+        }
     }
 }
