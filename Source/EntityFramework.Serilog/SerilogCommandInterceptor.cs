@@ -19,6 +19,7 @@ namespace EntityFramework.Serilog
         private readonly ILogger _Logger;
         private readonly WeakReference _Context;
         private readonly Stopwatch _Stopwatch = new Stopwatch();
+        private readonly bool _IsBoundToContext;
 
         /// <summary>
         /// Creates a formatter that will not filter by any <see cref="DbContext" /> and will instead log every command
@@ -46,6 +47,7 @@ namespace EntityFramework.Serilog
             }
             _Context = new WeakReference(context);
             RemoveInterceptorWhenContextDisposing(context);
+            _IsBoundToContext = true;
         }
 
         /// <summary>
@@ -115,7 +117,7 @@ namespace EntityFramework.Serilog
         /// <returns></returns>
         protected virtual bool ShouldLog(DbInterceptionContext interceptionContext)
         {
-            return Context == null || interceptionContext.DbContexts.FirstOrDefault(ctx => ReferenceEquals(ctx, Context)) != null;
+            return !_IsBoundToContext || interceptionContext.DbContexts.FirstOrDefault(ctx => ReferenceEquals(ctx, Context)) != null;
         }
 
         /// <summary>
