@@ -9,4 +9,9 @@ Use [Serilog](http://serilog.net/) to Log your EntityFramework connects, disconn
 PM> Install-Package EntityFramewok.Serilog
 ```
 # Example
-TBD
+```csharp
+using (var ctx = new TestContext())
+{
+	ctx.UseSerilog();
+}
+```
