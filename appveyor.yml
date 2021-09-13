@@ -7,7 +7,7 @@ assembly_info:
   assembly_file_version: '{version}'
   assembly_informational_version: '{version}'
 before_build:
-- ps: dotnet restore Source\EntityFramework.Serilog.sln
+- ps: nuget restore Source\EntityFramework.Serilog.sln
 build:
   project: Source\EntityFramework.Serilog.sln
   verbosity: minimal
