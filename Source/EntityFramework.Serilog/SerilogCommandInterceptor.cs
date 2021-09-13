@@ -17,7 +17,7 @@ namespace EntityFramework.Serilog
     class SerilogCommandInterceptor : IDbCommandInterceptor, IDbConnectionInterceptor, IDbTransactionInterceptor, IDisposable
     {
         private readonly ILogger _Logger;
-        private readonly WeakReference _Context;
+        private readonly WeakReference? _Context;
         private readonly Stopwatch _Stopwatch = new Stopwatch();
         private readonly bool _IsBoundToContext;
 
@@ -26,7 +26,7 @@ namespace EntityFramework.Serilog
         /// from any context and also commands that do not originate from a context.
         /// </summary>
         /// <param name="logger">The logger.</param>
-        public SerilogCommandInterceptor(ILogger logger = null)
+        public SerilogCommandInterceptor(ILogger? logger = null)
         {
             _Logger = logger ?? Log.Logger;
         }
@@ -38,7 +38,7 @@ namespace EntityFramework.Serilog
         /// from any context and also commands that do not originate from a context.</param>
         /// <param name="logger">The logger.</param>
         /// <exception cref="System.ArgumentNullException">context</exception>
-        public SerilogCommandInterceptor(DbContext context, ILogger logger)
+        public SerilogCommandInterceptor(DbContext context, ILogger? logger)
             : this(logger)
         {
             if (context == null)
@@ -65,7 +65,7 @@ namespace EntityFramework.Serilog
         /// The context for which commands are being logged, or null if commands from all contexts are
         /// being logged.
         /// </summary>
-        protected virtual DbContext Context
+        protected virtual DbContext? Context
         {
             get
             {
@@ -326,7 +326,7 @@ namespace EntityFramework.Serilog
             else
             {
                 var result = interceptionContext.Result;
-                var resultString = (object)result == null
+                var resultString = (object?)result == null
                     ? "<null>"
                     : (result is DbDataReader)
                         ? result.GetType().Name

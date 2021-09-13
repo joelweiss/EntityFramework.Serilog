@@ -5,7 +5,7 @@ namespace EntityFramework.Serilog
 {
     public static class Registration
     {
-        public static void UseSerilog(ILogger logger = null)
+        public static void UseSerilog(ILogger? logger = null)
         {
             DbInterception.Add(new SerilogCommandInterceptor(logger));
         }

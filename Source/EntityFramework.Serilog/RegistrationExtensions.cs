@@ -6,7 +6,7 @@ namespace System.Data.Entity
 {
     public static class RegistrationExtensions
     {
-        public static IDisposable UseSerilog(this DbContext context, ILogger logger = null)
+        public static IDisposable UseSerilog(this DbContext context, ILogger? logger = null)
         {
             var interceptor = new SerilogCommandInterceptor(context, logger);
             DbInterception.Add(interceptor);
